@@ -5,7 +5,7 @@ param location string
 param vnet_Name string
 
 @description('Address Prefix of the Virtual Network')
-param vnet_AddressPrefix string = '${firstThreeOctetsOfVNETPrefix}.0/16'
+param vnet_AddressPrefix string = '${firstTwoOctetsOfVNETPrefix}.0.0/16'
 
 @description('Name of the Network Security Group')
 param defaultNSG_Name string
@@ -14,37 +14,37 @@ param defaultNSG_Name string
 param routeTable_Name string
 
 @description('First two octects of the vnet prefix')
-param firstThreeOctetsOfVNETPrefix string
+param firstTwoOctetsOfVNETPrefix string
 
 @description('Name of the Azure Virtual Network Gateway Subnet')
 param subnet_Gateway_Name string = 'GatewaySubnet'
 
 @description('Address Prefix of the Azure Virtual Network Gateway Subnet')
-param subnet_Gateway_AddressPrefix string = '${firstThreeOctetsOfVNETPrefix}.0/24'
+param subnet_Gateway_AddressPrefix string = '${firstTwoOctetsOfVNETPrefix}.0.0/24'
 
 @description('Name of the Azure Firewall Subnet')
 param subnet_AzFW_Name string = 'AzureFirewallSubnet'
 
 @description('Address Prefix of the Azure Firewall Subnet')
-param subnet_AzFW_AddressPrefix string = '${firstThreeOctetsOfVNETPrefix}.1/24'
+param subnet_AzFW_AddressPrefix string = '${firstTwoOctetsOfVNETPrefix}.1.0/24'
 
 @description('Name of the Azure Firewall Management Subnet')
 param subnet_AzFW_Management_Name string = 'AzureFirewallManagementSubnet'
 
 @description('Address Prefix of the Azure Firewall Management Subnet')
-param subnet_AzFW_Management_AddressPrefix string = '${firstThreeOctetsOfVNETPrefix}.2/24'
+param subnet_AzFW_Management_AddressPrefix string = '${firstTwoOctetsOfVNETPrefix}.2.0/24'
 
 @description('Name of the Azure Bastion Subnet')
 param subnet_Bastion_Name string = 'AzureBastionSubnet'
 
 @description('Address Prefix of the Azure Bastion Subnet')
-param subnet_Bastion_AddressPrefix string = '${firstThreeOctetsOfVNETPrefix}.3/24'
+param subnet_Bastion_AddressPrefix string = '${firstTwoOctetsOfVNETPrefix}.3.0/24'
 
 @description('Name of the General Subnet for any other resources')
 param subnet_General_Name string = 'General'
 
 @description('Address Prefix of the General Subnet')
-param subnet_General_AddressPrefix string = '${firstThreeOctetsOfVNETPrefix}.4/24'
+param subnet_General_AddressPrefix string = '${firstTwoOctetsOfVNETPrefix}.4.0/24'
 
 resource vnet 'Microsoft.Network/virtualNetworks@2022-09-01' = {
   name: vnet_Name

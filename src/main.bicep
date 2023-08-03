@@ -23,7 +23,7 @@ module sourceVNET './Modules/VirtualNetwork.bicep' = {
   name: 'srcVNET'
   params: {
     defaultNSG_Name: 'srcNSG'
-    firstThreeOctetsOfVNETPrefix: '10.200.0'
+    firstTwoOctetsOfVNETPrefix: '10.200'
     location: srcLocation
     routeTable_Name: 'srcRT'
     vnet_Name: 'srcVNET'
@@ -67,7 +67,7 @@ module destinationVNET './Modules/VirtualNetwork.bicep' = {
   name: 'dstVNET'
   params: {
     defaultNSG_Name: 'dstNSG'
-    firstThreeOctetsOfVNETPrefix: '10.200.1'
+    firstTwoOctetsOfVNETPrefix: '10.200.1'
     location: dstLocation
     routeTable_Name: 'dstRT'
     vnet_Name: 'dstVNET'
