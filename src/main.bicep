@@ -89,7 +89,7 @@ module destinationVM './Modules/NetTestVM.bicep' = {
     accelNet: accelNet
     location: dstLocation
     nic_Name: 'dstNIC'
-    subnetID: sourceVNET.outputs.generalSubnetID
+    subnetID: destinationVNET.outputs.generalSubnetID
     vm_AdminPassword: vm_adminPassword
     vm_AdminUserName: vm_adminUsername
     vm_Name: 'dstVM'

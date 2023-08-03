@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.18.4.5664",
-      "templateHash": "17224001912550425098"
+      "templateHash": "13070193742709704377"
     }
   },
   "parameters": {
@@ -1087,7 +1087,7 @@
             "value": "dstNIC"
           },
           "subnetID": {
-            "value": "[reference(resourceId('Microsoft.Resources/deployments', 'srcVNET'), '2022-09-01').outputs.generalSubnetID.value]"
+            "value": "[reference(resourceId('Microsoft.Resources/deployments', 'dstVNET'), '2022-09-01').outputs.generalSubnetID.value]"
           },
           "vm_AdminPassword": {
             "value": "[parameters('vm_adminPassword')]"
@@ -1302,7 +1302,7 @@
         }
       },
       "dependsOn": [
-        "[resourceId('Microsoft.Resources/deployments', 'srcVNET')]"
+        "[resourceId('Microsoft.Resources/deployments', 'dstVNET')]"
       ]
     }
   ]
