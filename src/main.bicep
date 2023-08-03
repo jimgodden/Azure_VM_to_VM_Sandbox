@@ -36,6 +36,9 @@ module sourceVNETPeering './Modules/VirtualNetworkPeering.bicep' = {
     dstVNET_Name: destinationVNET.outputs.vnetName
     originVNET_Name: sourceVNET.outputs.vnetName
   }
+  dependsOn: [
+    sourceBastion
+  ]
 }
 
 module sourceVM './Modules/NetTestVM.bicep' = {
@@ -77,6 +80,9 @@ module destinationVNETPeering './Modules/VirtualNetworkPeering.bicep' = {
     dstVNET_Name: sourceVNET.outputs.vnetName
     originVNET_Name: destinationVNET.outputs.vnetName
   }
+  dependsOn: [
+    sourceBastion
+  ]
 }
 
 module destinationVM './Modules/NetTestVM.bicep' = {
