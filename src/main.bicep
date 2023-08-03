@@ -17,8 +17,6 @@ param vmSize string = 'Standard_D2s_v3'
 @description('True enables Accelerated Networking and False disabled it.  Not all VM sizes support Accel Net')
 param accelNet bool = true
 
-
-
 module sourceVNET './Modules/VirtualNetwork.bicep' = {
   name: 'srcVNET'
   params: {
@@ -67,7 +65,7 @@ module destinationVNET './Modules/VirtualNetwork.bicep' = {
   name: 'dstVNET'
   params: {
     defaultNSG_Name: 'dstNSG'
-    firstTwoOctetsOfVNETPrefix: '10.200.1'
+    firstTwoOctetsOfVNETPrefix: '10.201'
     location: dstLocation
     routeTable_Name: 'dstRT'
     vnet_Name: 'dstVNET'
