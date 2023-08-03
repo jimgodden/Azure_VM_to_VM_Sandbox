@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.18.4.5664",
-      "templateHash": "5213278062180389047"
+      "templateHash": "1138924734902475165"
     }
   },
   "parameters": {
@@ -63,8 +63,8 @@
           "defaultNSG_Name": {
             "value": "srcNSG"
           },
-          "firstThreeOctetsOfVNETPrefix": {
-            "value": "10.200.0"
+          "firstTwoOctetsOfVNETPrefix": {
+            "value": "10.200"
           },
           "location": {
             "value": "[parameters('srcLocation')]"
@@ -83,7 +83,7 @@
             "_generator": {
               "name": "bicep",
               "version": "0.18.4.5664",
-              "templateHash": "2472199655173399544"
+              "templateHash": "1726214982640884680"
             }
           },
           "parameters": {
@@ -101,7 +101,7 @@
             },
             "vnet_AddressPrefix": {
               "type": "string",
-              "defaultValue": "[format('{0}.0/16', parameters('firstThreeOctetsOfVNETPrefix'))]",
+              "defaultValue": "[format('{0}.0.0/16', parameters('firstTwoOctetsOfVNETPrefix'))]",
               "metadata": {
                 "description": "Address Prefix of the Virtual Network"
               }
@@ -118,7 +118,7 @@
                 "description": "Name of the Route Table"
               }
             },
-            "firstThreeOctetsOfVNETPrefix": {
+            "firstTwoOctetsOfVNETPrefix": {
               "type": "string",
               "metadata": {
                 "description": "First two octects of the vnet prefix"
@@ -133,7 +133,7 @@
             },
             "subnet_Gateway_AddressPrefix": {
               "type": "string",
-              "defaultValue": "[format('{0}.0/24', parameters('firstThreeOctetsOfVNETPrefix'))]",
+              "defaultValue": "[format('{0}.0.0/24', parameters('firstTwoOctetsOfVNETPrefix'))]",
               "metadata": {
                 "description": "Address Prefix of the Azure Virtual Network Gateway Subnet"
               }
@@ -147,7 +147,7 @@
             },
             "subnet_AzFW_AddressPrefix": {
               "type": "string",
-              "defaultValue": "[format('{0}.1/24', parameters('firstThreeOctetsOfVNETPrefix'))]",
+              "defaultValue": "[format('{0}.1.0/24', parameters('firstTwoOctetsOfVNETPrefix'))]",
               "metadata": {
                 "description": "Address Prefix of the Azure Firewall Subnet"
               }
@@ -161,7 +161,7 @@
             },
             "subnet_AzFW_Management_AddressPrefix": {
               "type": "string",
-              "defaultValue": "[format('{0}.2/24', parameters('firstThreeOctetsOfVNETPrefix'))]",
+              "defaultValue": "[format('{0}.2.0/24', parameters('firstTwoOctetsOfVNETPrefix'))]",
               "metadata": {
                 "description": "Address Prefix of the Azure Firewall Management Subnet"
               }
@@ -175,7 +175,7 @@
             },
             "subnet_Bastion_AddressPrefix": {
               "type": "string",
-              "defaultValue": "[format('{0}.3/24', parameters('firstThreeOctetsOfVNETPrefix'))]",
+              "defaultValue": "[format('{0}.3.0/24', parameters('firstTwoOctetsOfVNETPrefix'))]",
               "metadata": {
                 "description": "Address Prefix of the Azure Bastion Subnet"
               }
@@ -189,7 +189,7 @@
             },
             "subnet_General_AddressPrefix": {
               "type": "string",
-              "defaultValue": "[format('{0}.4/24', parameters('firstThreeOctetsOfVNETPrefix'))]",
+              "defaultValue": "[format('{0}.4.0/24', parameters('firstTwoOctetsOfVNETPrefix'))]",
               "metadata": {
                 "description": "Address Prefix of the General Subnet"
               }
@@ -752,7 +752,7 @@
           "defaultNSG_Name": {
             "value": "dstNSG"
           },
-          "firstThreeOctetsOfVNETPrefix": {
+          "firstTwoOctetsOfVNETPrefix": {
             "value": "10.200.1"
           },
           "location": {
@@ -772,7 +772,7 @@
             "_generator": {
               "name": "bicep",
               "version": "0.18.4.5664",
-              "templateHash": "2472199655173399544"
+              "templateHash": "1726214982640884680"
             }
           },
           "parameters": {
@@ -790,7 +790,7 @@
             },
             "vnet_AddressPrefix": {
               "type": "string",
-              "defaultValue": "[format('{0}.0/16', parameters('firstThreeOctetsOfVNETPrefix'))]",
+              "defaultValue": "[format('{0}.0.0/16', parameters('firstTwoOctetsOfVNETPrefix'))]",
               "metadata": {
                 "description": "Address Prefix of the Virtual Network"
               }
@@ -807,7 +807,7 @@
                 "description": "Name of the Route Table"
               }
             },
-            "firstThreeOctetsOfVNETPrefix": {
+            "firstTwoOctetsOfVNETPrefix": {
               "type": "string",
               "metadata": {
                 "description": "First two octects of the vnet prefix"
@@ -822,7 +822,7 @@
             },
             "subnet_Gateway_AddressPrefix": {
               "type": "string",
-              "defaultValue": "[format('{0}.0/24', parameters('firstThreeOctetsOfVNETPrefix'))]",
+              "defaultValue": "[format('{0}.0.0/24', parameters('firstTwoOctetsOfVNETPrefix'))]",
               "metadata": {
                 "description": "Address Prefix of the Azure Virtual Network Gateway Subnet"
               }
@@ -836,7 +836,7 @@
             },
             "subnet_AzFW_AddressPrefix": {
               "type": "string",
-              "defaultValue": "[format('{0}.1/24', parameters('firstThreeOctetsOfVNETPrefix'))]",
+              "defaultValue": "[format('{0}.1.0/24', parameters('firstTwoOctetsOfVNETPrefix'))]",
               "metadata": {
                 "description": "Address Prefix of the Azure Firewall Subnet"
               }
@@ -850,7 +850,7 @@
             },
             "subnet_AzFW_Management_AddressPrefix": {
               "type": "string",
-              "defaultValue": "[format('{0}.2/24', parameters('firstThreeOctetsOfVNETPrefix'))]",
+              "defaultValue": "[format('{0}.2.0/24', parameters('firstTwoOctetsOfVNETPrefix'))]",
               "metadata": {
                 "description": "Address Prefix of the Azure Firewall Management Subnet"
               }
@@ -864,7 +864,7 @@
             },
             "subnet_Bastion_AddressPrefix": {
               "type": "string",
-              "defaultValue": "[format('{0}.3/24', parameters('firstThreeOctetsOfVNETPrefix'))]",
+              "defaultValue": "[format('{0}.3.0/24', parameters('firstTwoOctetsOfVNETPrefix'))]",
               "metadata": {
                 "description": "Address Prefix of the Azure Bastion Subnet"
               }
@@ -878,7 +878,7 @@
             },
             "subnet_General_AddressPrefix": {
               "type": "string",
-              "defaultValue": "[format('{0}.4/24', parameters('firstThreeOctetsOfVNETPrefix'))]",
+              "defaultValue": "[format('{0}.4.0/24', parameters('firstTwoOctetsOfVNETPrefix'))]",
               "metadata": {
                 "description": "Address Prefix of the General Subnet"
               }
