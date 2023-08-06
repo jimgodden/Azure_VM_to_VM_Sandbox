@@ -61,6 +61,20 @@ module sourceBastion './Modules/Bastion.bicep' = {
   }
 }
 
+module sourceVMLinx 'Modules/LinuxNetTestVM.bicep' = {
+  name: 'srcVMLinux'
+  params: {
+    accelNet: accelNet
+    location: srcLocation
+    nic_Name: 'srcNICLinux'
+    subnetID: sourceVNET.outputs.generalSubnetID
+    vm_AdminPassword: vm_adminPassword
+    vm_AdminUserName: vm_adminUsername
+    vm_Name: 'srcVMLinux'
+    vmSize: vmSize
+  }
+}
+
 module destinationVNET './Modules/VirtualNetwork.bicep' = {
   name: 'dstVNET'
   params: {
@@ -93,6 +107,20 @@ module destinationVM './Modules/NetTestVM.bicep' = {
     vm_AdminPassword: vm_adminPassword
     vm_AdminUserName: vm_adminUsername
     vm_Name: 'dstVM'
+    vmSize: vmSize
+  }
+}
+
+module destinationVMLinx 'Modules/LinuxNetTestVM.bicep' = {
+  name: 'dstVMLinux'
+  params: {
+    accelNet: accelNet
+    location: dstLocation
+    nic_Name: 'dstNICLinux'
+    subnetID: destinationVNET.outputs.generalSubnetID
+    vm_AdminPassword: vm_adminPassword
+    vm_AdminUserName: vm_adminUsername
+    vm_Name: 'dstVMLinux'
     vmSize: vmSize
   }
 }
