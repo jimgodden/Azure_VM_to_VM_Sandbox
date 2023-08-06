@@ -3,8 +3,10 @@ param location string
 @description('Name of the Virtual Machine')
 param vm_Name string
 
-@description('Size of the VM')
-param vmSize string
+// @description('Size of the VM')
+// param vmSize string
+
+param hardwareProfile object
 
 @description('Admin Username for the Virtual Machine')
 param vm_AdminUserName string
@@ -58,9 +60,7 @@ resource vm 'Microsoft.Compute/virtualMachines@2022-11-01' = {
     type: 'SystemAssigned'
   }
   properties: {
-    hardwareProfile: {
-      vmSize: vmSize
-    }
+    hardwareProfile: hardwareProfile
     storageProfile: {
       imageReference: {
         publisher: 'MicrosoftWindowsServer'

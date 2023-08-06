@@ -3,8 +3,10 @@ param location string
 @description('Name of the Virtual Machine')
 param vm_Name string
 
-@description('Size of the VM')
-param vmSize string
+// @description('Size of the VM')
+// param vmSize string
+
+param hardwareProfile object
 
 @description('Admin Username for the Virtual Machine')
 param vm_AdminUserName string
@@ -50,9 +52,10 @@ resource linuxVM 'Microsoft.Compute/virtualMachines@2023-03-01' = {
   name: vm_Name
   location: location
   properties: {
-    hardwareProfile: {
-      vmSize: vmSize
-    }
+    // hardwareProfile: {
+    //   vmSize: vmSize
+    // }
+    hardwareProfile: hardwareProfile
     storageProfile: {
       imageReference: {
         publisher: 'canonical'

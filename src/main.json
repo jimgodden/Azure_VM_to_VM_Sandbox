@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.18.4.5664",
-      "templateHash": "14757937621766859998"
+      "templateHash": "1359191202625443099"
     }
   },
   "parameters": {
@@ -39,6 +39,12 @@
       "defaultValue": "Standard_D2s_v3",
       "metadata": {
         "description": "Password for the Virtual Machine Admin User"
+      }
+    },
+    "hardwareProfile": {
+      "type": "object",
+      "defaultValue": {
+        "vmSize": "Standard_D2s_v3"
       }
     },
     "accelNet": {
@@ -409,8 +415,8 @@
           "vm_Name": {
             "value": "srcVM"
           },
-          "vmSize": {
-            "value": "[parameters('vmSize')]"
+          "hardwareProfile": {
+            "value": "[parameters('hardwareProfile')]"
           }
         },
         "template": {
@@ -420,7 +426,7 @@
             "_generator": {
               "name": "bicep",
               "version": "0.18.4.5664",
-              "templateHash": "13610456173415112763"
+              "templateHash": "7215230548887478151"
             }
           },
           "parameters": {
@@ -433,11 +439,8 @@
                 "description": "Name of the Virtual Machine"
               }
             },
-            "vmSize": {
-              "type": "string",
-              "metadata": {
-                "description": "Size of the VM"
-              }
+            "hardwareProfile": {
+              "type": "object"
             },
             "vm_AdminUserName": {
               "type": "string",
@@ -507,9 +510,7 @@
                 "type": "SystemAssigned"
               },
               "properties": {
-                "hardwareProfile": {
-                  "vmSize": "[parameters('vmSize')]"
-                },
+                "hardwareProfile": "[parameters('hardwareProfile')]",
                 "storageProfile": {
                   "imageReference": {
                     "publisher": "MicrosoftWindowsServer",
@@ -770,8 +771,8 @@
           "vm_Name": {
             "value": "srcVMLinux"
           },
-          "vmSize": {
-            "value": "[parameters('vmSize')]"
+          "hardwareProfile": {
+            "value": "[parameters('hardwareProfile')]"
           }
         },
         "template": {
@@ -781,7 +782,7 @@
             "_generator": {
               "name": "bicep",
               "version": "0.18.4.5664",
-              "templateHash": "950508837785297545"
+              "templateHash": "752421139510548405"
             }
           },
           "parameters": {
@@ -794,11 +795,8 @@
                 "description": "Name of the Virtual Machine"
               }
             },
-            "vmSize": {
-              "type": "string",
-              "metadata": {
-                "description": "Size of the VM"
-              }
+            "hardwareProfile": {
+              "type": "object"
             },
             "vm_AdminUserName": {
               "type": "string",
@@ -861,9 +859,7 @@
               "name": "[parameters('vm_Name')]",
               "location": "[parameters('location')]",
               "properties": {
-                "hardwareProfile": {
-                  "vmSize": "[parameters('vmSize')]"
-                },
+                "hardwareProfile": "[parameters('hardwareProfile')]",
                 "storageProfile": {
                   "imageReference": {
                     "publisher": "canonical",
@@ -1296,8 +1292,8 @@
           "vm_Name": {
             "value": "dstVM"
           },
-          "vmSize": {
-            "value": "[parameters('vmSize')]"
+          "hardwareProfile": {
+            "value": "[parameters('hardwareProfile')]"
           }
         },
         "template": {
@@ -1307,7 +1303,7 @@
             "_generator": {
               "name": "bicep",
               "version": "0.18.4.5664",
-              "templateHash": "13610456173415112763"
+              "templateHash": "7215230548887478151"
             }
           },
           "parameters": {
@@ -1320,11 +1316,8 @@
                 "description": "Name of the Virtual Machine"
               }
             },
-            "vmSize": {
-              "type": "string",
-              "metadata": {
-                "description": "Size of the VM"
-              }
+            "hardwareProfile": {
+              "type": "object"
             },
             "vm_AdminUserName": {
               "type": "string",
@@ -1394,9 +1387,7 @@
                 "type": "SystemAssigned"
               },
               "properties": {
-                "hardwareProfile": {
-                  "vmSize": "[parameters('vmSize')]"
-                },
+                "hardwareProfile": "[parameters('hardwareProfile')]",
                 "storageProfile": {
                   "imageReference": {
                     "publisher": "MicrosoftWindowsServer",
@@ -1534,8 +1525,8 @@
           "vm_Name": {
             "value": "dstVMLinux"
           },
-          "vmSize": {
-            "value": "[parameters('vmSize')]"
+          "hardwareProfile": {
+            "value": "[parameters('hardwareProfile')]"
           }
         },
         "template": {
@@ -1545,7 +1536,7 @@
             "_generator": {
               "name": "bicep",
               "version": "0.18.4.5664",
-              "templateHash": "950508837785297545"
+              "templateHash": "752421139510548405"
             }
           },
           "parameters": {
@@ -1558,11 +1549,8 @@
                 "description": "Name of the Virtual Machine"
               }
             },
-            "vmSize": {
-              "type": "string",
-              "metadata": {
-                "description": "Size of the VM"
-              }
+            "hardwareProfile": {
+              "type": "object"
             },
             "vm_AdminUserName": {
               "type": "string",
@@ -1625,9 +1613,7 @@
               "name": "[parameters('vm_Name')]",
               "location": "[parameters('location')]",
               "properties": {
-                "hardwareProfile": {
-                  "vmSize": "[parameters('vmSize')]"
-                },
+                "hardwareProfile": "[parameters('hardwareProfile')]",
                 "storageProfile": {
                   "imageReference": {
                     "publisher": "canonical",
