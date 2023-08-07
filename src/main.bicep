@@ -14,9 +14,9 @@ param vm_adminPassword string
 @description('Password for the Virtual Machine Admin User')
 param vmSize string = 'Standard_D2s_v3'
 
-param hardwareProfile object = {
-  vmSize: 'Standard_D2s_v3'
-}
+// param hardwareProfile object = {
+//   vmSize: 'Standard_D2s_v3'
+// }
 
 @description('True enables Accelerated Networking and False disabled it.  Not all VM sizes support Accel Net')
 param accelNet bool = true
@@ -53,8 +53,7 @@ module sourceVM './Modules/NetTestVM.bicep' = {
     vm_AdminPassword: vm_adminPassword
     vm_AdminUserName: vm_adminUsername
     vm_Name: 'srcVM'
-    // vmSize: vmSize
-    hardwareProfile: hardwareProfile
+    vmSize: vmSize
   }
 }
 
@@ -76,8 +75,7 @@ module sourceVMLinx 'Modules/LinuxNetTestVM.bicep' = {
     vm_AdminPassword: vm_adminPassword
     vm_AdminUserName: vm_adminUsername
     vm_Name: 'srcVMLinux'
-    // vmSize: vmSize
-    hardwareProfile: hardwareProfile
+    vmSize: vmSize
   }
 }
 
@@ -113,8 +111,7 @@ module destinationVM './Modules/NetTestVM.bicep' = {
     vm_AdminPassword: vm_adminPassword
     vm_AdminUserName: vm_adminUsername
     vm_Name: 'dstVM'
-    // vmSize: vmSize
-    hardwareProfile: hardwareProfile
+    vmSize: vmSize
   }
 }
 
@@ -128,8 +125,7 @@ module destinationVMLinx 'Modules/LinuxNetTestVM.bicep' = {
     vm_AdminPassword: vm_adminPassword
     vm_AdminUserName: vm_adminUsername
     vm_Name: 'dstVMLinux'
-    // vmSize: vmSize
-    hardwareProfile: hardwareProfile
+    vmSize: vmSize
   }
 }
 
