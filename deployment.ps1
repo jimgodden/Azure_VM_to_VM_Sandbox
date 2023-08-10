@@ -19,7 +19,7 @@ if (!$subID) {
 Set-AzContext -Subscription $subID
 
 
-$rgName = "Bicep_VM_to_VM_Sandbox2"
+$rgName = "Bicep_VM_to_VM_Sandbox"
 $srcLocation = "eastus2"
 $dstLocation = "westcentralus"
 
