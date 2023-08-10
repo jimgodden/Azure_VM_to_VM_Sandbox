@@ -9,3 +9,8 @@ You may either clone this repro and deploy with Bicep or use the easy deploy bel
 
 
 [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fjimgodden%2FVM_to_VM%2Fmain%2Fsrc%2Fmain.json)
+
+
+Diagram of the infrastructure with all optional components
+
+![Diagram of the infrastructure with all optional components](diagram.drawio.png)

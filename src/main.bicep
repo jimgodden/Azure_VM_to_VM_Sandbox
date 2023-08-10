@@ -24,8 +24,19 @@ param VNG_SKU string = 'VpnGw1'
 @secure()
 param vpn_SharedKey string
 
+@description('Sku name of the Azure Firewall.  Allowed values are Basic, Standard, and Premium')
+@allowed([
+  'Basic'
+  'Standard'
+  'Premium'
+])
+param AzFW_SKU string
+
 @description('If true, Virtual Networks will be connected via Virtual Network Gateway S2S connection.  If false, Virtual Network Peering will be used instead.')
 param isUsingVPN bool = true
+
+@description('If true, an Azure Firewall will be deployed in both source and destination')
+param isUsingAzureFirewall bool = true
 
 @description('If true, a Windows VM will be deployed in both source and destination')
 param isUsingWindows bool = true
@@ -183,6 +194,31 @@ module destinationVMLinx 'Modules/LinuxNetTestVM.bicep' = if (isUsingLinux) {
     vm_AdminUserName: vm_adminUsername
     vm_Name: 'dstVMLinux'
     vmSize: vmSize
+  }
+}
+
+// Azure Firewall
+module sourceAzFW 'Modules/AzureFirewall.bicep' = if (isUsingAzureFirewall) {
+  name: 'srcAzFW'
+  params: {
+    AzFW_Name: 'srcAzFW'
+    AzFW_SKU: AzFW_SKU
+    azfwManagementSubnetID: sourceVNET.outputs.azfwManagementSubnetID
+    AzFWPolicy_Name: 'srcAzFW_Policy'
+    azfwSubnetID: sourceVNET.outputs.azfwSubnetID
+    location: srcLocation
+  }
+}
+
+module destinationAzFW 'Modules/AzureFirewall.bicep' = if (isUsingAzureFirewall) {
+  name: 'dstAzFW'
+  params: {
+    AzFW_Name: 'dstAzFW'
+    AzFW_SKU: AzFW_SKU
+    azfwManagementSubnetID: destinationVNET.outputs.azfwManagementSubnetID
+    AzFWPolicy_Name: 'dstAzFW_Policy'
+    azfwSubnetID: destinationVNET.outputs.azfwSubnetID
+    location: dstLocation
   }
 }
 
