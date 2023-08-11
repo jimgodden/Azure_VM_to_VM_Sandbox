@@ -46,6 +46,12 @@ param subnet_General_Name string = 'General'
 @description('Address Prefix of the General Subnet')
 param subnet_General_AddressPrefix string = '${firstTwoOctetsOfVNETPrefix}.4.0/24'
 
+@description('Name of the PrivateEndpoint Subnet')
+param subnet_PrivateEndpoints_Name string = 'General'
+
+@description('Address Prefix of the PrivateEndpoint Subnet')
+param subnet_PrivateEndpoints_AddressPrefix string = '${firstTwoOctetsOfVNETPrefix}.5.0/24'
+
 resource vnet 'Microsoft.Network/virtualNetworks@2022-09-01' = {
   name: vnet_Name
   location: location
@@ -107,6 +113,21 @@ resource vnet 'Microsoft.Network/virtualNetworks@2022-09-01' = {
           privateLinkServiceNetworkPolicies: 'Enabled'
         }
       }
+      {
+        name: subnet_PrivateEndpoints_Name
+        properties: {
+          addressPrefix: subnet_PrivateEndpoints_AddressPrefix
+          networkSecurityGroup: {
+            id: nsg.id
+          }
+          routeTable: {
+            id: routeTable.id
+          }
+          delegations: []
+          privateEndpointNetworkPolicies: 'Disabled'
+          privateLinkServiceNetworkPolicies: 'Enabled'
+        }
+      }
     ]
     enableDdosProtection: false
   }
@@ -152,6 +173,7 @@ output azfwSubnetID string = vnet.properties.subnets[1].id
 output azfwManagementSubnetID string = vnet.properties.subnets[2].id
 output bastionSubnetID string = vnet.properties.subnets[3].id
 output generalSubnetID string = vnet.properties.subnets[4].id
+output privateEndpointSubnetID string = vnet.properties.subnets[5].id
 
 output vnetName string = vnet.name
 output vnetID string = vnet.id
