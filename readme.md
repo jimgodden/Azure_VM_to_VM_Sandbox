@@ -1,7 +1,7 @@
 Lab environment for testing connectivity between Virtual Machines in separate Virtual Networks.
 
 Optional configurations are as follows:
-Same Region or multi Region
+\r\nSame Region or multi Region
 Virtual Network Gateway or Virtual Network Peering connection
 Azure Firewall
 Windows or Linux Virtual Machines
