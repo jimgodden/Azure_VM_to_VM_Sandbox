@@ -54,10 +54,16 @@ resource linuxVM 'Microsoft.Compute/virtualMachines@2023-03-01' = {
       vmSize: vmSize
     }
     storageProfile: {
+      // imageReference: {
+      //   publisher: 'canonical'
+      //   offer: '0001-com-ubuntu-server-focal'
+      //   sku: '20_04-lts-gen2'
+      //   version: 'latest'
+      // }
       imageReference: {
-        publisher: 'canonical'
-        offer: '0001-com-ubuntu-server-focal'
-        sku: '20_04-lts-gen2'
+        publisher: 'suse'
+        offer: 'sles-15-sp3-byos'
+        sku: 'gen1'
         version: 'latest'
       }
       osDisk: {
