@@ -6,6 +6,8 @@ param vm_Name string
 @description('Size of the VM')
 param vmSize string
 
+// param hardwareProfile object
+
 @description('Admin Username for the Virtual Machine')
 param vm_AdminUserName string
 
@@ -21,7 +23,10 @@ param accelNet bool
 
 param subnetID string
 
-param vm_ScriptFileUri string = 'https://raw.githubusercontent.com/jimgodden/Azure-Virtual-WAN-Sandbox/main/scripts/InitScript.ps1'
+param vm_ScriptFileUri string = 'https://mainjamesgstorage.blob.core.windows.net/scripts/InitScript.ps1'
+
+
+
 
 resource nic 'Microsoft.Network/networkInterfaces@2022-09-01' = {
   name: nic_Name
@@ -148,3 +153,7 @@ resource vm_CustomScriptExtension 'Microsoft.Compute/virtualMachines/extensions@
     }
   }
 }
+
+
+output nicName string = nic.name
+output nicIPConfig0Name string = nic.properties.ipConfigurations[0].name

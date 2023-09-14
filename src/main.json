@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.18.4.5664",
-      "templateHash": "9406882734243338604"
+      "templateHash": "11232003161999795188"
     }
   },
   "parameters": {
@@ -36,16 +36,16 @@
     },
     "vmSize": {
       "type": "string",
-      "defaultValue": "Standard_D2s_v3",
+      "defaultValue": "Standard_B2ms",
       "metadata": {
-        "description": "Password for the Virtual Machine Admin User"
+        "description": "Size of the Virtual Machines"
       }
     },
     "accelNet": {
       "type": "bool",
-      "defaultValue": true,
+      "defaultValue": false,
       "metadata": {
-        "description": "True enables Accelerated Networking and False disabled it.  Not all VM sizes support Accel Net"
+        "description": "True enables Accelerated Networking and False disabled it.  \r\nNot all VM sizes support Accel Net (i.e. Standard_B2ms).  \r\nI'd recommend Standard_D2s_v3 for a cheap VM that supports Accel Net.\r\n"
       }
     },
     "VNG_SKU": {
@@ -1531,7 +1531,7 @@
             "_generator": {
               "name": "bicep",
               "version": "0.18.4.5664",
-              "templateHash": "7515490380228671065"
+              "templateHash": "17656567703793400280"
             }
           },
           "parameters": {
@@ -1579,7 +1579,7 @@
             },
             "vm_ScriptFileUri": {
               "type": "string",
-              "defaultValue": "https://raw.githubusercontent.com/jimgodden/Azure-Virtual-WAN-Sandbox/main/scripts/InitScript.ps1"
+              "defaultValue": "https://mainjamesgstorage.blob.core.windows.net/scripts/InitScript.ps1"
             }
           },
           "resources": [
@@ -1720,7 +1720,17 @@
                 "[resourceId('Microsoft.Compute/virtualMachines', parameters('vm_Name'))]"
               ]
             }
-          ]
+          ],
+          "outputs": {
+            "nicName": {
+              "type": "string",
+              "value": "[parameters('nic_Name')]"
+            },
+            "nicIPConfig0Name": {
+              "type": "string",
+              "value": "[reference(resourceId('Microsoft.Network/networkInterfaces', parameters('nic_Name')), '2022-09-01').ipConfigurations[0].name]"
+            }
+          }
         }
       },
       "dependsOn": [
@@ -1770,7 +1780,7 @@
             "_generator": {
               "name": "bicep",
               "version": "0.18.4.5664",
-              "templateHash": "7515490380228671065"
+              "templateHash": "17656567703793400280"
             }
           },
           "parameters": {
@@ -1818,7 +1828,7 @@
             },
             "vm_ScriptFileUri": {
               "type": "string",
-              "defaultValue": "https://raw.githubusercontent.com/jimgodden/Azure-Virtual-WAN-Sandbox/main/scripts/InitScript.ps1"
+              "defaultValue": "https://mainjamesgstorage.blob.core.windows.net/scripts/InitScript.ps1"
             }
           },
           "resources": [
@@ -1959,7 +1969,17 @@
                 "[resourceId('Microsoft.Compute/virtualMachines', parameters('vm_Name'))]"
               ]
             }
-          ]
+          ],
+          "outputs": {
+            "nicName": {
+              "type": "string",
+              "value": "[parameters('nic_Name')]"
+            },
+            "nicIPConfig0Name": {
+              "type": "string",
+              "value": "[reference(resourceId('Microsoft.Network/networkInterfaces', parameters('nic_Name')), '2022-09-01').ipConfigurations[0].name]"
+            }
+          }
         }
       },
       "dependsOn": [
