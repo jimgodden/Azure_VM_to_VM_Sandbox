@@ -44,8 +44,20 @@ param isUsingAzureFirewall bool = true
 @description('If true, a Windows VM will be deployed in both source and destination')
 param isUsingWindows bool = true
 
+@description('Amount of Windows Virtual Machines to deploy in the source side.  This number is irrelevant if not deploying Windows Virtual Machines')
+param amountOfSourceSideWindowsVMs int = 1
+
+@description('Amount of Windows Virtual Machines to deploy in the destination side.  This number is irrelevant if not deploying Windows Virtual Machines')
+param amountOfDestinationSideWindowsVMs int = 1
+
 @description('If true, a Linux VM will be deployed in both source and destination')
 param isUsingLinux bool = true
+
+@description('Amount of Linux Virtual Machines to deploy in the source side.  This number is irrelevant if not deploying Linux Virtual Machines')
+param amountOfSourceSideLinuxVMs  int = 1
+
+@description('Amount of Linux Virtual Machines to deploy in the destination side.  This number is irrelevant if not deploying Linux Virtual Machines')
+param amountOfDestinationSideLinuxVMs  int = 1
 
 // Virtual Networks
 module sourceVNET './Modules/VirtualNetwork.bicep' = {
@@ -143,62 +155,62 @@ module destinationVNETPeering './Modules/VirtualNetworkPeering.bicep' = if (!isU
 }
 
 // Windows Virtual Machines
-module sourceVM_Windows './Modules/NetTestVM.bicep' = if (isUsingWindows) {
-  name: 'srcVMWindows'
+module sourceVM_Windows './Modules/NetTestVM.bicep' = [ for i in range(1, amountOfSourceSideWindowsVMs):  if (isUsingWindows) {
+  name: 'srcVMWindows${i}'
   params: {
     accelNet: accelNet
     location: srcLocation
-    nic_Name: 'srcNICWindows'
+    nic_Name: 'srcVM-Windows_NIC${i}'
     subnetID: sourceVNET.outputs.generalSubnetID
     vm_AdminPassword: vm_adminPassword
     vm_AdminUserName: vm_adminUsername
-    vm_Name: 'srcVMWindows'
+    vm_Name: 'srcVM-Windows${i}'
     vmSize: vmSize
   }
-}
+} ]
 
-module destinationVM_Windows './Modules/NetTestVM.bicep' = if (isUsingWindows) {
-  name: 'dstVMWindows'
+module destinationVM_Windows './Modules/NetTestVM.bicep' = [ for i in range(1, amountOfDestinationSideWindowsVMs):  if (isUsingWindows) {
+  name: 'dstVMWindows${i}'
   params: {
     accelNet: accelNet
     location: dstLocation
-    nic_Name: 'dstNICWindows'
+    nic_Name: 'dstVM-Windows_NIC${i}'
     subnetID: destinationVNET.outputs.generalSubnetID
     vm_AdminPassword: vm_adminPassword
     vm_AdminUserName: vm_adminUsername
-    vm_Name: 'dstVMWindows'
+    vm_Name: 'dstVM-Windows${i}'
     vmSize: vmSize
   }
-}
+} ]
 
 // Linux Virtual Machines
-module sourceVM_Linx 'Modules/LinuxNetTestVM.bicep' = if (isUsingLinux) {
-  name: 'srcVMLinux'
+module sourceVM_Linx 'Modules/LinuxNetTestVM.bicep' = [ for i in range(1, amountOfSourceSideLinuxVMs):  if (isUsingLinux) {
+  name: 'srcVMLinux${i}'
   params: {
     accelNet: accelNet
     location: srcLocation
-    nic_Name: 'srcNICLinux'
+    nic_Name: 'srcVM-Linux_NIC${i}'
     subnetID: sourceVNET.outputs.generalSubnetID
     vm_AdminPassword: vm_adminPassword
     vm_AdminUserName: vm_adminUsername
-    vm_Name: 'srcVMLinux'
+    vm_Name: 'srcVM-Linux${i}'
     vmSize: vmSize
   }
-}
+} ]
 
-module destinationVMLinx 'Modules/LinuxNetTestVM.bicep' = if (isUsingLinux) {
-  name: 'dstVMLinux'
+module destinationVMLinx 'Modules/LinuxNetTestVM.bicep' = [ for i in range(1, amountOfDestinationSideLinuxVMs):  if (isUsingLinux) {
+  name: 'dstVMLinux${i}'
   params: {
     accelNet: accelNet
     location: dstLocation
-    nic_Name: 'dstNICLinux'
+    nic_Name: 'dstVM-Linux_NIC${i}'
     subnetID: destinationVNET.outputs.generalSubnetID
     vm_AdminPassword: vm_adminPassword
     vm_AdminUserName: vm_adminUsername
-    vm_Name: 'dstVMLinux'
+    vm_Name: 'dstVM-Linux${i}'
     vmSize: vmSize
   }
-}
+} ]
 
 // Azure Firewall
 module sourceAzFW 'Modules/AzureFirewall.bicep' = if (isUsingAzureFirewall) {

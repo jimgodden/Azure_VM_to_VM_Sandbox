@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.18.4.5664",
-      "templateHash": "11232003161999795188"
+      "templateHash": "3100761338499680853"
     }
   },
   "parameters": {
@@ -93,11 +93,39 @@
         "description": "If true, a Windows VM will be deployed in both source and destination"
       }
     },
+    "amountOfSourceSideWindowsVMs": {
+      "type": "int",
+      "defaultValue": 1,
+      "metadata": {
+        "description": "Amount of Windows Virtual Machines to deploy in the source side.  This number is irrelevant if not deploying Windows Virtual Machines"
+      }
+    },
+    "amountOfDestinationSideWindowsVMs": {
+      "type": "int",
+      "defaultValue": 1,
+      "metadata": {
+        "description": "Amount of Windows Virtual Machines to deploy in the destination side.  This number is irrelevant if not deploying Windows Virtual Machines"
+      }
+    },
     "isUsingLinux": {
       "type": "bool",
       "defaultValue": true,
       "metadata": {
         "description": "If true, a Linux VM will be deployed in both source and destination"
+      }
+    },
+    "amountOfSourceSideLinuxVMs": {
+      "type": "int",
+      "defaultValue": 1,
+      "metadata": {
+        "description": "Amount of Linux Virtual Machines to deploy in the source side.  This number is irrelevant if not deploying Linux Virtual Machines"
+      }
+    },
+    "amountOfDestinationSideLinuxVMs": {
+      "type": "int",
+      "defaultValue": 1,
+      "metadata": {
+        "description": "Amount of Linux Virtual Machines to deploy in the destination side.  This number is irrelevant if not deploying Linux Virtual Machines"
       }
     }
   },
@@ -1489,10 +1517,14 @@
       ]
     },
     {
+      "copy": {
+        "name": "sourceVM_Windows",
+        "count": "[length(range(1, parameters('amountOfSourceSideWindowsVMs')))]"
+      },
       "condition": "[parameters('isUsingWindows')]",
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2022-09-01",
-      "name": "srcVMWindows",
+      "name": "[format('srcVMWindows{0}', range(1, parameters('amountOfSourceSideWindowsVMs'))[copyIndex()])]",
       "properties": {
         "expressionEvaluationOptions": {
           "scope": "inner"
@@ -1506,7 +1538,7 @@
             "value": "[parameters('srcLocation')]"
           },
           "nic_Name": {
-            "value": "srcNICWindows"
+            "value": "[format('srcVM-Windows_NIC{0}', range(1, parameters('amountOfSourceSideWindowsVMs'))[copyIndex()])]"
           },
           "subnetID": {
             "value": "[reference(resourceId('Microsoft.Resources/deployments', 'srcVNET'), '2022-09-01').outputs.generalSubnetID.value]"
@@ -1518,7 +1550,7 @@
             "value": "[parameters('vm_adminUsername')]"
           },
           "vm_Name": {
-            "value": "srcVMWindows"
+            "value": "[format('srcVM-Windows{0}', range(1, parameters('amountOfSourceSideWindowsVMs'))[copyIndex()])]"
           },
           "vmSize": {
             "value": "[parameters('vmSize')]"
@@ -1738,10 +1770,14 @@
       ]
     },
     {
+      "copy": {
+        "name": "destinationVM_Windows",
+        "count": "[length(range(1, parameters('amountOfDestinationSideWindowsVMs')))]"
+      },
       "condition": "[parameters('isUsingWindows')]",
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2022-09-01",
-      "name": "dstVMWindows",
+      "name": "[format('dstVMWindows{0}', range(1, parameters('amountOfDestinationSideWindowsVMs'))[copyIndex()])]",
       "properties": {
         "expressionEvaluationOptions": {
           "scope": "inner"
@@ -1755,7 +1791,7 @@
             "value": "[parameters('dstLocation')]"
           },
           "nic_Name": {
-            "value": "dstNICWindows"
+            "value": "[format('dstVM-Windows_NIC{0}', range(1, parameters('amountOfDestinationSideWindowsVMs'))[copyIndex()])]"
           },
           "subnetID": {
             "value": "[reference(resourceId('Microsoft.Resources/deployments', 'dstVNET'), '2022-09-01').outputs.generalSubnetID.value]"
@@ -1767,7 +1803,7 @@
             "value": "[parameters('vm_adminUsername')]"
           },
           "vm_Name": {
-            "value": "dstVMWindows"
+            "value": "[format('dstVM-Windows{0}', range(1, parameters('amountOfDestinationSideWindowsVMs'))[copyIndex()])]"
           },
           "vmSize": {
             "value": "[parameters('vmSize')]"
@@ -1987,10 +2023,14 @@
       ]
     },
     {
+      "copy": {
+        "name": "sourceVM_Linx",
+        "count": "[length(range(1, parameters('amountOfSourceSideLinuxVMs')))]"
+      },
       "condition": "[parameters('isUsingLinux')]",
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2022-09-01",
-      "name": "srcVMLinux",
+      "name": "[format('srcVMLinux{0}', range(1, parameters('amountOfSourceSideLinuxVMs'))[copyIndex()])]",
       "properties": {
         "expressionEvaluationOptions": {
           "scope": "inner"
@@ -2004,7 +2044,7 @@
             "value": "[parameters('srcLocation')]"
           },
           "nic_Name": {
-            "value": "srcNICLinux"
+            "value": "[format('srcVM-Linux_NIC{0}', range(1, parameters('amountOfSourceSideLinuxVMs'))[copyIndex()])]"
           },
           "subnetID": {
             "value": "[reference(resourceId('Microsoft.Resources/deployments', 'srcVNET'), '2022-09-01').outputs.generalSubnetID.value]"
@@ -2016,7 +2056,7 @@
             "value": "[parameters('vm_adminUsername')]"
           },
           "vm_Name": {
-            "value": "srcVMLinux"
+            "value": "[format('srcVM-Linux{0}', range(1, parameters('amountOfSourceSideLinuxVMs'))[copyIndex()])]"
           },
           "vmSize": {
             "value": "[parameters('vmSize')]"
@@ -2186,10 +2226,14 @@
       ]
     },
     {
+      "copy": {
+        "name": "destinationVMLinx",
+        "count": "[length(range(1, parameters('amountOfDestinationSideLinuxVMs')))]"
+      },
       "condition": "[parameters('isUsingLinux')]",
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2022-09-01",
-      "name": "dstVMLinux",
+      "name": "[format('dstVMLinux{0}', range(1, parameters('amountOfDestinationSideLinuxVMs'))[copyIndex()])]",
       "properties": {
         "expressionEvaluationOptions": {
           "scope": "inner"
@@ -2203,7 +2247,7 @@
             "value": "[parameters('dstLocation')]"
           },
           "nic_Name": {
-            "value": "dstNICLinux"
+            "value": "[format('dstVM-Linux_NIC{0}', range(1, parameters('amountOfDestinationSideLinuxVMs'))[copyIndex()])]"
           },
           "subnetID": {
             "value": "[reference(resourceId('Microsoft.Resources/deployments', 'dstVNET'), '2022-09-01').outputs.generalSubnetID.value]"
@@ -2215,7 +2259,7 @@
             "value": "[parameters('vm_adminUsername')]"
           },
           "vm_Name": {
-            "value": "dstVMLinux"
+            "value": "[format('dstVM-Linux{0}', range(1, parameters('amountOfDestinationSideLinuxVMs'))[copyIndex()])]"
           },
           "vmSize": {
             "value": "[parameters('vmSize')]"
